@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lakadong Turmeric – Polyhouse Soilless Fertigation Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F8F4; --ink:#1C231E; --leaf:#23422E; --muted:#56615A;
+  --line:#D5DDD0; --mist:#EAF0E5; --turmeric:#E0A21F; --curcumin:#B8690B;
+  --s0:#8FA487; --s1:#5E8C4A; --s2:#3F7A3A; --s3:#9DAE3C; --s4:#E0A21F; --s5:#B8690B; --s6:#8A6A3E;
+  --warn-bg:#FFF4DC; --warn-line:#E0A21F;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141A16; --ink:#E6EBE3; --leaf:#A9D39A; --muted:#A3AE9F; --line:#34403A; --mist:#1E2721;
+    --warn-bg:#2E2614; --warn-line:#C28A1A;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Sans 3","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.55}
+main{max-width:980px;margin:0 auto;padding:40px 22px 80px}
+h1,h2,h3{font-family:"Bitter",Georgia,"Times New Roman",serif;color:var(--leaf);line-height:1.2}
+h1{font-size:clamp(30px,5vw,46px);font-weight:800;margin:0 0 10px;letter-spacing:-0.01em}
+h2{font-size:26px;font-weight:700;margin:56px 0 12px;padding-top:18px;border-top:3px solid var(--turmeric)}
+h3{font-size:19px;font-weight:700;margin:28px 0 8px}
+p,li{max-width:74ch}
+.lede{font-size:19px;color:var(--muted);max-width:66ch;margin:0 0 30px}
+a{color:var(--leaf)}
+strong{font-weight:700}
+.small{font-size:14.5px;color:var(--muted)}
+
+/* Season bar – the one bold element */
+.season{margin:10px 0 8px}
+.bar{display:grid;grid-template-columns:25fr 20fr 75fr 60fr 50fr 15fr 20fr;border-radius:10px;overflow:hidden;min-height:112px}
+.seg{padding:10px 8px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;font-size:13.5px;line-height:1.25;min-width:0}
+.seg b{font-size:14.5px;display:block}
+.seg .ec{font-family:"Bitter",Georgia,serif;font-size:20px;font-weight:800}
+.seg.s0{background:var(--s0)} .seg.s1{background:var(--s1)} .seg.s2{background:var(--s2)}
+.seg.s3{background:var(--s3);color:#18230f} .seg.s4{background:var(--s4);color:#2a1a00}
+.seg.s5{background:var(--s5)} .seg.s6{background:var(--s6)}
+.axis{display:grid;grid-template-columns:25fr 20fr 75fr 60fr 50fr 15fr 20fr;font-size:13px;color:var(--muted);margin-top:6px}
+.axis span{border-left:1px solid var(--line);padding-left:4px;white-space:nowrap;overflow:hidden}
+@media (max-width:720px){
+  .bar,.axis{grid-template-columns:1fr}
+  .bar{min-height:0}
+  .seg{flex-direction:row;align-items:center;gap:10px;justify-content:flex-start}
+  .seg .ec{margin-left:auto}
+  .axis{display:none}
+}
+
+.note{background:var(--warn-bg);border-left:5px solid var(--warn-line);padding:14px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+.note p{margin:6px 0}
+
+.tablewrap{overflow-x:auto;margin:14px 0 8px;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:560px}
+th,td{padding:9px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--leaf);color:#fff;font-weight:600}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) thead th{color:#10160f}}
+tbody tr:nth-child(even) td{background:var(--mist)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:700}
+.chip{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+ol.steps{padding-left:22px}
+ol.steps li{margin:6px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:720px){.two{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:8px;padding:14px 18px;background:var(--paper)}
+.box h3{margin-top:4px}
+footer{margin-top:60px;font-size:14px;color:var(--muted)}
+footer li{margin:4px 0;max-width:none}
+@media print{
+  body{font-size:12pt;background:#fff;color:#000}
+  main{padding:0}
+  h2{break-before:auto;page-break-after:avoid}
+  .tablewrap{overflow:visible;border:none}
+  table{min-width:0}
+  tr,td{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Lakadong turmeric in a 1-acre polyhouse, grown in cocopeat + coco chips grow bags</h1>
+<p class="lede">Operating plan for the Bengaluru polyhouse: what to order, when to plant, and what to feed at each stage.</p>
+
+<div class="season" aria-label="Season timeline, planting mid-April, harvest late December to January">
+  <div class="bar">
+    <div class="seg s0"><div><b>Sprouting</b>0–25 DAP</div><div>Plain water</div></div>
+    <div class="seg s1"><div><b>Establish</b>to 45 DAP</div><div class="ec">EC 1.0</div></div>
+    <div class="seg s2"><div><b>Vegetative</b>45–120 DAP</div><div class="ec">EC 1.6–1.8</div></div>
+    <div class="seg s3"><div><b>Rhizome initiation</b>120–180 DAP</div><div class="ec">EC 1.8–1.9</div></div>
+    <div class="seg s4"><div><b>Bulking</b>180–230 DAP</div><div class="ec">EC 2.0</div></div>
+    <div class="seg s5"><div><b>Ripen</b>230–245</div><div class="ec">EC 1.0</div></div>
+    <div class="seg s6"><div><b>Water only</b>then harvest</div><div>~255–270</div></div>
+  </div>
+  <div class="axis"><span>15 Apr</span><span>10 May</span><span>30 May</span><span>13 Aug</span><span>12 Oct</span><span>1 Dec</span><span>16 Dec → Jan</span></div>
+</div>
+<p class="small">DAP = days after planting. Dates assume planting on 15 April. EC values are the <em>added</em> fertiliser EC in mS/cm, on top of the raw water's EC.</p>
+
+<h3>The farm at a glance</h3>
+<div class="tablewrap"><table>
+<tbody>
+<tr><td>Polyhouse area</td><td>1 acre (≈ 4,047 m²)</td></tr>
+<tr><td>Plants</td><td>30,000, one per bag (final count from the bed layout drawing)</td></tr>
+<tr><td>Grow bag</td><td>16″ wide × 12″ tall (lay-flat), ≈ 12 L media per bag</td></tr>
+<tr><td>Layout</td><td>Beds 4 bags wide, bags touching, 60–70 cm paths</td></tr>
+<tr><td>Media</td><td>Cocopeat 80 : coco chips 20 by volume, both washed and buffered</td></tr>
+<tr><td>Compressed cocopeat</td><td>≈ 23 t (≈ 4,500 blocks of 5 kg)</td></tr>
+<tr><td>Coco chips</td><td>≈ 80 m³ expanded</td></tr>
+<tr><td>Fertilisers</td><td>Calcium nitrate (fertigation grade, no boron), potassium nitrate 13:0:45, MKP 0:52:34, SOP 0:0:50, magnesium sulphate, Fe-EDTA, micronutrients</td></tr>
+<tr><td>Irrigation</td><td>Small shots of 30–35 ml per plant, 3–4 a day (2 on cloudy days), steered by a root-zone meter: moisture 30–50%, EC no higher than 3.0</td></tr>
+<tr><td>Fertiliser cost</td><td>≈ ₹1.35 lakh for the season (≈ ₹5,000 → ₹25,000–32,000 per month), at October 2026 prices</td></tr>
+<tr><td>Planting</td><td>1–20 April (target 15 April)</td></tr>
+<tr><td>Harvest</td><td>Late December – mid January</td></tr>
+<tr><td>Compliance</td><td>EU export: no pesticides or insecticides; all inputs heavy-metal tested; every input recorded</td></tr>
+</tbody></table></div>
+
+<!-- ================================================= -->
+<h2>1. Season calendar</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>When</th><th>Task</th></tr></thead>
+<tbody>
+<tr><td>January – February</td><td>Book seed rhizomes from a genuine Lakadong (GI area) source, with a written declaration that the seed is untreated (no pesticide or fungicide). Send a water sample for testing: pH, EC, bicarbonate, Ca, Mg, Na, Cl, B, and heavy metals (Pb, Cd, As, Hg).</td></tr>
+<tr><td>February</td><td>Get the bed layout drawing from the polyhouse builder (26 cm bag width). Collect vendor samples and run the sample block test (section 2). Collect heavy-metal certificates for cocopeat, chips and every fertiliser (sections 2 and 4). Place orders, including fertiliser lot 1 (section 10) and a root-zone moisture/EC meter (section 9).</td></tr>
+<tr><td>February</td><td>Share the water test and section 6 recipes with the Yara schedule agronomist for final adjustment.</td></tr>
+<tr><td>Early March</td><td>Receive seed. Store in shade, spread thin, lightly covered with dry sawdust or sand. Discard soft, rotten or shrivelled pieces.</td></tr>
+<tr><td>1–25 March</td><td>Receive the planting lot (≈ 18 t cocopeat + ≈ 64 m³ chips). Expand, mix 80:20, fill bags to planting level, set out in 4-wide beds, lay drip with pressure-compensating non-leak drippers, flush the system and run the dripper uniformity check (section 9). Install insect-proof netting, double door, footbath and sticky traps (section 12).</td></tr>
+<tr><td>1–20 April</td><td>Plant seed pieces directly into the bags. Target: 15 April.</td></tr>
+<tr><td>+15 to 30 days</td><td>Shoots emerge. Start fertigation when the first leaf unfolds (section 5).</td></tr>
+<tr><td>By early June</td><td>Receive the top-up lot (≈ 5 t cocopeat + ≈ 16 m³ chips).</td></tr>
+<tr><td>By early August</td><td>Receive fertiliser lot 2 for Stages 3–5 (section 10). Size it from the litres actually used so far in the daily register.</td></tr>
+<tr><td>~60 and ~100 DAP</td><td>Top up each bag with 2–2.5 cm (≈ 1.2 L) of pre-wetted 80:20 mix.</td></tr>
+<tr><td>~90 and ~160 DAP</td><td>Leaf tissue test (youngest fully opened leaf).</td></tr>
+<tr><td>Late December – mid January</td><td>Harvest when 70–80% of leaves have yellowed and dried (≈ 250–270 DAP).</td></tr>
+<tr><td>Before sale</td><td>Lab test of the dried product: pesticide multi-residue, heavy metals, aflatoxins, curcumin (section 14).</td></tr>
+</tbody></table></div>
+
+<!-- ================================================= -->
+<h2>2. Grow bags and media</h2>
+
+<h3>Grow bag</h3>
+<p>16″ wide × 12″ tall (lay-flat width × height), ≈ 26 cm across when filled.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Fill stage</th><th>Media depth</th><th class="num">Media per bag</th></tr></thead>
+<tbody>
+<tr><td>At planting</td><td>≈ 19 cm (7.5″)</td><td class="num">≈ 9.7 L</td></tr>
+<tr><td>Top-up at ~60 DAP</td><td>+ 2–2.5 cm</td><td class="num">≈ 1.2 L</td></tr>
+<tr><td>Top-up at ~100 DAP</td><td>+ 2–2.5 cm</td><td class="num">≈ 1.2 L</td></tr>
+<tr class="total"><td>Season total</td><td>≈ 23 cm</td><td class="num">≈ 12 L</td></tr>
+</tbody></table></div>
+
+<h3>Layout</h3>
+<p>Beds 4 bags wide (≈ 1.05–1.1 m), bags touching, 60–70 cm path between beds. One pressure-compensating, non-leak dripper per bag. Order the bag count from the layout drawing plus 3–5% spares.</p>
+<figure style="margin:16px 0">
+<svg viewBox="0 0 600 400" role="img" aria-label="Top view of two beds, each four grow bags wide, separated by a 60 to 70 centimetre path" style="width:100%;max-width:600px;height:auto;display:block">
+  <rect x="20" y="30" width="216" height="324" rx="6" fill="var(--mist)" stroke="var(--line)"/>
+  <rect x="366" y="30" width="216" height="324" rx="6" fill="var(--mist)" stroke="var(--line)"/>
+  <g fill="#ffffff" stroke="var(--muted)" stroke-width="1.5">
+    <g id="bedbags">
+      <circle cx="47" cy="57" r="25"/><circle cx="101" cy="57" r="25"/><circle cx="155" cy="57" r="25"/><circle cx="209" cy="57" r="25"/>
+      <circle cx="47" cy="111" r="25"/><circle cx="101" cy="111" r="25"/><circle cx="155" cy="111" r="25"/><circle cx="209" cy="111" r="25"/>
+      <circle cx="47" cy="165" r="25"/><circle cx="101" cy="165" r="25"/><circle cx="155" cy="165" r="25"/><circle cx="209" cy="165" r="25"/>
+      <circle cx="47" cy="219" r="25"/><circle cx="101" cy="219" r="25"/><circle cx="155" cy="219" r="25"/><circle cx="209" cy="219" r="25"/>
+      <circle cx="47" cy="273" r="25"/><circle cx="101" cy="273" r="25"/><circle cx="155" cy="273" r="25"/><circle cx="209" cy="273" r="25"/>
+      <circle cx="47" cy="327" r="25"/><circle cx="101" cy="327" r="25"/><circle cx="155" cy="327" r="25"/><circle cx="209" cy="327" r="25"/>
+    </g>
+    <use href="#bedbags" x="346"/>
+  </g>
+  <g fill="var(--turmeric)">
+    <circle cx="47" cy="57" r="4"/><circle cx="101" cy="57" r="4"/><circle cx="155" cy="57" r="4"/><circle cx="209" cy="57" r="4"/>
+    <circle cx="393" cy="57" r="4"/><circle cx="447" cy="57" r="4"/><circle cx="501" cy="57" r="4"/><circle cx="555" cy="57" r="4"/>
+  </g>
+  <g font-family="Source Sans 3, Segoe UI, sans-serif" font-size="14" fill="var(--muted)" text-anchor="middle">
+    <text x="128" y="20">Bed: 4 bags ≈ 1.05–1.1 m</text>
+    <text x="474" y="20">Bed: 4 bags ≈ 1.05–1.1 m</text>
+    <text x="301" y="185">Path</text>
+    <text x="301" y="204">60–70 cm</text>
+    <text x="128" y="378">Bag ≈ 26 cm, 1 dripper each</text>
+    <text x="474" y="378">Bags touching along the bed</text>
+  </g>
+  <line x1="246" y1="215" x2="356" y2="215" stroke="var(--muted)" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+</svg>
+<figcaption class="small">Top view, not to scale. Orange dots: one dripper per bag (shown on first row only).</figcaption>
+</figure>
+<h3>Media</h3>
+<div class="tablewrap"><table>
+<tbody>
+<tr><td>Mix</td><td>Cocopeat 80 : coco chips 20 by volume</td></tr>
+<tr><td>Cocopeat</td><td>Washed and buffered, low-EC, coarse grade with few fines</td></tr>
+<tr><td>Coco chips</td><td>Washed and buffered, 6–12 mm</td></tr>
+<tr><td>Per bag</td><td>≈ 9.6 L cocopeat (expanded) + ≈ 2.4 L chips for the season</td></tr>
+</tbody></table></div>
+
+<h3>Quantities for 30,000 bags (including 10% extra)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th class="num">Total</th><th class="num">Planting lot (by March)</th><th class="num">Top-up lot (by early June)</th></tr></thead>
+<tbody>
+<tr><td>Compressed cocopeat</td><td class="num">≈ 23 t (≈ 4,500 × 5 kg blocks)</td><td class="num">≈ 18 t</td><td class="num">≈ 5 t</td></tr>
+<tr><td>Cocopeat, expanded</td><td class="num">≈ 317 m³</td><td class="num">≈ 254 m³</td><td class="num">≈ 63 m³</td></tr>
+<tr><td>Coco chips, expanded</td><td class="num">≈ 80 m³</td><td class="num">≈ 64 m³</td><td class="num">≈ 16 m³</td></tr>
+<tr><td>Grow bags 16″×12″</td><td class="num">30,000 + 3–5% spares</td><td class="num">all</td><td class="num">—</td></tr>
+</tbody></table></div>
+<p class="small">Tonnage is based on 70 L expanded per 5 kg block (20 t at 80 L, 26 t at 60 L). Confirm with the sample block test below. Compare vendors on price per expanded m³.</p>
+
+<h3>Sample block test</h3>
+<ol class="steps">
+<li>Get a sample 5 kg cocopeat block and some chips from each vendor.</li>
+<li>Expand the block fully in a drum and let it drain.</li>
+<li>Mix with chips at 80:20 (4 buckets peat : 1 bucket chips).</li>
+<li>Fill 16″×12″ bags to ≈ 19 cm and count how many bags one block fills.</li>
+</ol>
+<div class="note"><p><strong>Blocks needed = 30,000 ÷ bags filled per block × 1.25</strong></p>
+<p>Expected: about 8–9 bags per block, ≈ 4,300–4,700 blocks.</p></div>
+
+<h3>Vendor specifications</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Item</th><th>Specification</th></tr></thead>
+<tbody>
+<tr><td>Grow bags</td><td>16″×12″ (lay-flat width × height); UV-stabilised LDPE; white outside / black inside; at least 150 micron (600 gauge); bottom drainage holes; base that stands upright; ≈ 30,000 + spares.</td></tr>
+<tr><td>Cocopeat</td><td>Washed and buffered (calcium nitrate), low-EC, coarse grade with few fines; 5 kg compressed blocks; EC &lt; 0.5–1.0 mS/cm, pH 5.5–6.5, Na &lt; 50 ppm, K &lt; 150 ppm, Ca figure stated; heavy metals (Pb, Cd, As, Hg) and pesticide residue report; lab report per lot; expanded litres per block stated; ≈ 23 t in two deliveries.</td></tr>
+<tr><td>Coco chips</td><td>Washed and buffered, 6–12 mm; same lab limits and reports as the cocopeat; quoted per m³ or litres per block; ≈ 80 m³ in two deliveries.</td></tr>
+<tr><td>Option</td><td>Pre-blended 80:20 cocopeat + chips blocks; vendor to state how many blocks give ≈ 400 m³ expanded.</td></tr>
+</tbody></table></div>
+
+<!-- ================================================= -->
+<h2>3. Seed rhizomes and planting</h2>
+<p>Healthy, untreated mother or finger pieces of 25–30 g with 2–3 plump buds. Plant 4–5 cm deep, buds up, one piece per bag. Keep media just moist until shoots appear.</p>
+<h3>Seed treatment</h3>
+<p>Biological only: <em>Pseudomonas fluorescens</em> 10 g + <em>Trichoderma viride</em> 4 g per kg of rhizomes. Use only products your buyer or certifier has accepted, and record product name, batch number, date and quantity.</p>
+
+<!-- ================================================= -->
+<h2>4. Fertilisers</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Fertiliser</th><th>Grade / analysis</th><th>Tank</th></tr></thead>
+<tbody>
+<tr><td>Calcium nitrate (fertigation grade, no boron, e.g. YaraTera Calcinit)</td><td>15.5% N, 18.8% Ca</td><td>A</td></tr>
+<tr><td>Potassium nitrate</td><td>13:0:45</td><td>A</td></tr>
+<tr><td>Mono potassium phosphate (MKP)</td><td>0:52:34</td><td>B</td></tr>
+<tr><td>Sulphate of potash (SOP)</td><td>0:0:50, 17.5% S</td><td>B</td></tr>
+<tr><td>Magnesium sulphate (heptahydrate)</td><td>9.6% Mg, 12% S</td><td>B</td></tr>
+<tr><td>Fe-EDTA 12% (Fe-EDDHA 6% if drain pH runs above 6.5)</td><td>chelated iron</td><td>A</td></tr>
+<tr><td>Mn, Zn, B, Cu, Mo salts (section 7)</td><td>micronutrients</td><td>B</td></tr>
+<tr><td>Nitric acid (or phosphoric acid)</td><td>only if water bicarbonate is high</td><td>Separate acid tank</td></tr>
+</tbody></table></div>
+<div class="note">
+<p><strong>Not for this drip system:</strong> Yara Nitrabor and YaraMila. Nitrabor is a field-grade calcium nitrate with 0.3% boron and a coating for dry spreading; the coating can block drippers, and at 750 g / 1000 L it would give ≈ 2.25 ppm boron, about 6 times the target. YaraMila is a granular NPK for soil. Buy fertigation-grade, fully water-soluble products only.</p>
+</div>
+<div class="note">
+<p><strong>Rule:</strong> never mix calcium nitrate with MKP, SOP or magnesium sulphate in concentrated form. Keep them in separate tanks A and B; they meet only after dilution.</p>
+</div>
+<div class="note">
+<p><strong>Heavy metals:</strong> buy only fertigation or technical grade. Get a heavy-metal certificate (Pb, Cd, As, Hg) for every batch of every fertiliser, micronutrient salt and acid. Use nitric acid for pH correction; use phosphoric acid only if it is technical or food grade with a certificate. Keep the certificates with the input register.</p>
+</div>
+
+<!-- ================================================= -->
+<h2>5. When to start feeding</h2>
+<ol class="steps">
+<li><strong>Planting to emergence (≈ 0–25 DAP):</strong> no fertiliser. Plain water only, just enough to keep media moist.</li>
+<li><strong>First feed:</strong> when the first leaf has unfolded on most plants. Use the Stage 1 recipe.</li>
+<li><strong>From then on:</strong> fertiliser at every irrigation. No plain-water-only days.</li>
+</ol>
+
+<!-- ================================================= -->
+<h2>6. Stage-wise recipes</h2>
+<p>Grams per 1000 litres of final drip water.</p>
+
+<div class="tablewrap"><table>
+<thead><tr>
+<th>Fertiliser (g / 1000 L)</th>
+<th class="num"><span class="chip" style="background:var(--s1)"></span>Stage 1<br>Establish<br>emergence–45</th>
+<th class="num"><span class="chip" style="background:var(--s2)"></span>Stage 2<br>Vegetative<br>45–120</th>
+<th class="num"><span class="chip" style="background:var(--s3)"></span>Stage 3<br>Rhizome init.<br>120–180</th>
+<th class="num"><span class="chip" style="background:var(--s4)"></span>Stage 4<br>Bulking<br>180–230</th>
+<th class="num"><span class="chip" style="background:var(--s5)"></span>Stage 5<br>Ripening<br>230–245</th>
+</tr></thead>
+<tbody>
+<tr><td>Calcium nitrate</td><td class="num">450</td><td class="num">750</td><td class="num">700</td><td class="num">650</td><td class="num">325</td></tr>
+<tr><td>Potassium nitrate 13:0:45</td><td class="num">150</td><td class="num">300</td><td class="num">300</td><td class="num">350</td><td class="num">175</td></tr>
+<tr><td>MKP 0:52:34</td><td class="num">120</td><td class="num">180</td><td class="num">220</td><td class="num">220</td><td class="num">110</td></tr>
+<tr><td>SOP 0:0:50</td><td class="num">0</td><td class="num">80</td><td class="num">180</td><td class="num">300</td><td class="num">150</td></tr>
+<tr><td>Magnesium sulphate</td><td class="num">250</td><td class="num">400</td><td class="num">450</td><td class="num">450</td><td class="num">225</td></tr>
+<tr><td>Micronutrients (section 7)</td><td class="num">½ dose</td><td class="num">full</td><td class="num">full</td><td class="num">full</td><td class="num">½ dose</td></tr>
+<tr class="total"><td>Added EC (mS/cm), approx.</td><td class="num">≈ 0.9–1.0</td><td class="num">≈ 1.7</td><td class="num">≈ 1.8</td><td class="num">≈ 2.0</td><td class="num">≈ 1.0</td></tr>
+<tr class="total"><td>Feed pH</td><td class="num">5.8–6.2</td><td class="num">5.8–6.2</td><td class="num">5.8–6.2</td><td class="num">5.8–6.3</td><td class="num">5.8–6.3</td></tr>
+</tbody></table></div>
+
+<h3>Target levels in the drip water (ppm)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Element</th><th class="num">Stage 1</th><th class="num">Stage 2</th><th class="num">Stage 3</th><th class="num">Stage 4</th><th class="num">Stage 5</th></tr></thead>
+<tbody>
+<tr><td>Nitrogen (N)</td><td class="num">89</td><td class="num">155</td><td class="num">148</td><td class="num">146</td><td class="num">73</td></tr>
+<tr><td>Phosphorus (P)</td><td class="num">27</td><td class="num">41</td><td class="num">50</td><td class="num">50</td><td class="num">25</td></tr>
+<tr><td>Potassium (K)</td><td class="num">90</td><td class="num">196</td><td class="num">249</td><td class="num">317</td><td class="num">159</td></tr>
+<tr><td>Calcium (Ca)</td><td class="num">85</td><td class="num">141</td><td class="num">132</td><td class="num">122</td><td class="num">61</td></tr>
+<tr><td>Magnesium (Mg)</td><td class="num">24</td><td class="num">38</td><td class="num">43</td><td class="num">43</td><td class="num">22</td></tr>
+<tr><td>Sulphur (S)</td><td class="num">32</td><td class="num">65</td><td class="num">89</td><td class="num">110</td><td class="num">55</td></tr>
+</tbody></table></div>
+
+<p><strong>Stage 6 (≈ 245 DAP to harvest):</strong> no fertiliser. Plain water only, reducing volume as leaves dry. Do not let bags dry out completely before harvest.</p>
+
+<!-- ================================================= -->
+<h2>7. Micronutrients</h2>
+<p>Full dose per 1000 L of drip water.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Product</th><th class="num">g / 1000 L</th><th class="num">Gives (ppm)</th><th class="num">In a 100 L stock tank (1:100)</th><th>Tank</th></tr></thead>
+<tbody>
+<tr><td>Fe-EDTA 12%</td><td class="num">17</td><td class="num">Fe 2.0</td><td class="num">170 g</td><td>A</td></tr>
+<tr><td>Manganese sulphate (MnSO₄·H₂O, 30.5%)</td><td class="num">1.6</td><td class="num">Mn 0.5</td><td class="num">16 g</td><td>B</td></tr>
+<tr><td>Zinc sulphate (ZnSO₄·H₂O, 33%)</td><td class="num">0.9</td><td class="num">Zn 0.3</td><td class="num">9 g</td><td>B</td></tr>
+<tr><td>Solubor (20% B) <em>or</em> borax 11%</td><td class="num">1.7 <em>or</em> 3.0</td><td class="num">B 0.35</td><td class="num">17 g <em>or</em> 30 g</td><td>B</td></tr>
+<tr><td>Copper sulphate (CuSO₄·5H₂O, 25%)</td><td class="num">0.2</td><td class="num">Cu 0.05</td><td class="num">2 g</td><td>B</td></tr>
+<tr><td>Sodium molybdate (39%)</td><td class="num">0.12</td><td class="num">Mo 0.05</td><td class="num">1.2 g</td><td>B</td></tr>
+</tbody></table></div>
+<p class="small">Alternative: a chelated multi-micronutrient fertigation mix, dosed so iron is 1.5–2.5 ppm. Leave out boron if the water test shows B above 0.3 ppm.</p>
+
+<!-- ================================================= -->
+<h2>8. Stock tanks (1:100 injection)</h2>
+<p>Two 100 L stock tanks, each injected at 1:100. Each 100 L of stock makes 10,000 L of drip water.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Per 100 L of stock</th><th class="num">Stage 1</th><th class="num">Stage 2</th><th class="num">Stage 3</th><th class="num">Stage 4</th><th class="num">Stage 5</th></tr></thead>
+<tbody>
+<tr><td colspan="6"><strong>Tank A</strong></td></tr>
+<tr><td>Calcium nitrate</td><td class="num">4.5 kg</td><td class="num">7.5 kg</td><td class="num">7.0 kg</td><td class="num">6.5 kg</td><td class="num">3.25 kg</td></tr>
+<tr><td>Potassium nitrate</td><td class="num">1.5 kg</td><td class="num">3.0 kg</td><td class="num">3.0 kg</td><td class="num">3.5 kg</td><td class="num">1.75 kg</td></tr>
+<tr><td>Fe-EDTA 12%</td><td class="num">85 g</td><td class="num">170 g</td><td class="num">170 g</td><td class="num">170 g</td><td class="num">85 g</td></tr>
+<tr><td colspan="6"><strong>Tank B</strong></td></tr>
+<tr><td>MKP 0:52:34</td><td class="num">1.2 kg</td><td class="num">1.8 kg</td><td class="num">2.2 kg</td><td class="num">2.2 kg</td><td class="num">1.1 kg</td></tr>
+<tr><td>SOP 0:0:50</td><td class="num">—</td><td class="num">0.8 kg</td><td class="num">1.8 kg</td><td class="num">3.0 kg</td><td class="num">1.5 kg</td></tr>
+<tr><td>Magnesium sulphate</td><td class="num">2.5 kg</td><td class="num">4.0 kg</td><td class="num">4.5 kg</td><td class="num">4.5 kg</td><td class="num">2.25 kg</td></tr>
+<tr><td>Mn, Zn, B, Cu, Mo salts</td><td class="num">½ of sec. 7</td><td class="num">sec. 7</td><td class="num">sec. 7</td><td class="num">sec. 7</td><td class="num">½ of sec. 7</td></tr>
+</tbody></table></div>
+<ol class="steps">
+<li>Fill each tank to about 70% with water (warm water if available).</li>
+<li>Dissolve one fertiliser at a time, stirring fully before adding the next. Top up to 100 L.</li>
+<li>Inject A and B at 1:100. Measure EC at the dripper: it should equal raw water EC + added EC from section 6. If it is off, adjust the injection rate.</li>
+<li>Without an injector: mix directly into a 1000 L drip tank using the section 6 amounts. Dissolve each fertiliser in a separate bucket, add one by one, calcium nitrate last.</li>
+</ol>
+
+<!-- ================================================= -->
+<h2>9. Water, irrigation and daily checks</h2>
+<h3>Water</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Raw water test result</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Bicarbonate above ≈ 1 mmol/L (≈ 60 ppm HCO₃)</td><td>Inject nitric acid (or phosphoric) to bring feed to pH 5.8–6.2.</td></tr>
+<tr><td>High calcium / magnesium</td><td>Reduce calcium nitrate / magnesium sulphate (agronomist to adjust).</td></tr>
+<tr><td>EC above ≈ 0.8 mS/cm</td><td>Blend with RO or rain water.</td></tr>
+<tr><td>Any heavy metal (Pb, Cd, As, Hg) detected</td><td>Do not use until treated (RO) or replaced with a clean source; retest.</td></tr>
+</tbody></table></div>
+
+<h3>How irrigation is steered</h3>
+<p>Water is given in small shots, and each decision is made from a root-zone meter (moisture and EC inside the bag, e.g. a Bluetooth pulse meter), not from drain. Very little water drains out, which keeps water and fertiliser use low.</p>
+<div class="tablewrap"><table>
+<tbody>
+<tr><td>Root-zone moisture</td><td>Keep between 30% and 50%</td></tr>
+<tr><td>Root-zone EC</td><td>Never above 3.0 mS/cm</td></tr>
+<tr><td>Where to measure</td><td>The same 10 marked bags every day, spread across the polyhouse (front, middle, back, bed edges and centres), at the same depth and the same distance from the dripper</td></tr>
+</tbody></table></div>
+
+<h3>Shots per plant (starting guide)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Stage</th><th class="num">ml per shot</th><th class="num">Shots per day</th><th class="num">ml per plant per day</th></tr></thead>
+<tbody>
+<tr><td>Before emergence (plain water)</td><td class="num">30</td><td class="num">only when moisture falls below 30%</td><td class="num">—</td></tr>
+<tr><td>Stage 1 (establish)</td><td class="num">30</td><td class="num">2–3</td><td class="num">60–90</td></tr>
+<tr><td>Stage 2 (vegetative)</td><td class="num">30–35</td><td class="num">3–4</td><td class="num">90–140</td></tr>
+<tr><td>Stages 3–4 (full canopy, Aug–Nov)</td><td class="num">30–35</td><td class="num">3–4 (up to 5 on hot days)</td><td class="num">90–175</td></tr>
+<tr><td>Stage 5 (ripening)</td><td class="num">30</td><td class="num">1–2</td><td class="num">≈ 60</td></tr>
+<tr><td>Stage 6 (water only)</td><td class="num">30</td><td class="num">reduce as leaves dry</td><td class="num">—</td></tr>
+<tr class="total"><td>Cloudy days, any stage</td><td class="num">30–35</td><td class="num">2 at most</td><td class="num">60–70</td></tr>
+</tbody></table></div>
+<ul>
+<li>Give a shot when the root zone has dried towards 30–35%. Skip it if moisture is still above 45–50%.</li>
+<li>First shot 1–2 hours after sunrise; last shot at least 2–3 hours before sunset, so bags do not stay wet overnight.</li>
+<li>Shot length depends on the dripper: 30 ml is about 55 seconds on a 2 L/h dripper, or about 27 seconds on a 4 L/h dripper. Set the controller in seconds, then confirm the volume with the check below.</li>
+<li>Use pressure-compensating, non-leak (anti-drain) drippers so every bag gets the same amount and laterals stay full between shots.</li>
+<li><strong>Dripper check (monthly, and before planting):</strong> catch one shot from 10 drippers across the house in measuring cups. All should be within ±10% of the average; clean or replace any that are not.</li>
+</ul>
+
+<h3>Daily checks</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Measure</th><th>Target</th><th>If it is off</th></tr></thead>
+<tbody>
+<tr><td>Root-zone moisture (10-bag average)</td><td>30–50%</td><td>Below 30%: add a shot. Above 50% or staying wet: skip the next shot or shorten shots.</td></tr>
+<tr><td>Root-zone EC</td><td>Up to 3.0; normally ≈ 0.5–1.0 above feed EC</td><td>Above 3.0: give 1–2 larger flush shots (≈ 200–300 ml) with plain water or half-strength feed until it is back to ≈ 2.5. If it keeps climbing, lower feed EC by 0.2. Well below feed EC: raise feed EC by 0.2.</td></tr>
+<tr><td>Feed EC and pH at the dripper</td><td>Raw water EC + section 6 added EC; pH 5.8–6.2</td><td>Adjust injection rate or acid dose.</td></tr>
+<tr><td>Runoff pH (weekly, from a flush or catch tray)</td><td>5.8–6.8</td><td>Above 7: lower feed pH with acid, or replace 10–20% of the MKP with MAP 12:61:0. Below 5.5: raise feed pH.</td></tr>
+</tbody></table></div>
+<div class="note"><p><strong>EC figures:</strong> the EC values in this plan are the <em>added</em> fertiliser EC. The grower reference of 1.8–2.2 feed EC may be the total EC (raw water + fertiliser). Confirm which one before comparing; your target at the dripper is always raw water EC + section 6 added EC.</p></div>
+<p><strong>Daily register:</strong> date, weather (sunny / cloudy), shots given and ml per shot, feed EC, feed pH, root-zone moisture and EC (10-bag average), any flush, litres used (water meter reading).</p>
+<p><strong>Input register:</strong> every fertiliser, acid, media lot and biological product used — name, batch number, supplier, date, quantity, certificate reference.</p>
+
+<!-- ================================================= -->
+<h2>10. Fertiliser budget for the season</h2>
+<p>Based on the section 9 shots (midpoint ≈ 65 ml/plant/day in Stage 1, 115 ml in Stage 2, 140 ml in Stages 3–4, 60 ml in Stage 5), 30,000 plants, and wholesale prices per 25 kg bag (October 2026).</p>
+
+<h3>Water and cost by stage</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Stage</th><th class="num">Days</th><th class="num">Drip water</th><th class="num">₹ per 1000 L</th><th class="num">₹ per month</th><th class="num">₹ for the stage</th></tr></thead>
+<tbody>
+<tr><td>1 Establish</td><td class="num">≈ 20</td><td class="num">≈ 39 m³</td><td class="num">89</td><td class="num">≈ 5,000–7,000</td><td class="num">≈ 3,500</td></tr>
+<tr><td>2 Vegetative</td><td class="num">75</td><td class="num">≈ 259 m³</td><td class="num">161</td><td class="num">≈ 13,000–20,000</td><td class="num">≈ 41,500</td></tr>
+<tr><td>3 Rhizome initiation</td><td class="num">60</td><td class="num">≈ 252 m³</td><td class="num">180</td><td class="num">≈ 15,000–28,000</td><td class="num">≈ 45,300</td></tr>
+<tr><td>4 Bulking</td><td class="num">50</td><td class="num">≈ 210 m³</td><td class="num">199</td><td class="num">≈ 16,000–32,000</td><td class="num">≈ 41,700</td></tr>
+<tr><td>5 Ripening</td><td class="num">15</td><td class="num">≈ 27 m³</td><td class="num">99</td><td class="num">≈ 5,000</td><td class="num">≈ 2,700</td></tr>
+<tr class="total"><td>Season</td><td class="num">≈ 220</td><td class="num">≈ 790 m³</td><td class="num"></td><td class="num">avg ≈ 18,000</td><td class="num">≈ ₹1.35 lakh</td></tr>
+</tbody></table></div>
+<p class="small">Monthly cost = litres per day × ₹ per 1000 L × 30. The ₹ per 1000 L depends only on the stage recipe and prices; water use is what moves the total. Iron and micronutrients are extra (not yet priced).</p>
+
+<h3>Quantities to order</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Fertiliser</th><th class="num">₹ per 25 kg bag</th><th class="num">Season need</th><th class="num">Order (+20%)</th><th class="num">Season cost</th></tr></thead>
+<tbody>
+<tr><td>Calcium nitrate (fertigation grade, no boron)</td><td class="num">≈ 1,700*</td><td class="num">≈ 530 kg</td><td class="num">≈ 650 kg (26 bags)</td><td class="num">≈ 36,000</td></tr>
+<tr><td>Potassium nitrate 13:0:45</td><td class="num">3,900</td><td class="num">≈ 240 kg</td><td class="num">≈ 300 kg (12 bags)</td><td class="num">≈ 37,000</td></tr>
+<tr><td>MKP 0:52:34</td><td class="num">5,700</td><td class="num">≈ 155 kg</td><td class="num">≈ 200 kg (8 bags)</td><td class="num">≈ 35,500</td></tr>
+<tr><td>SOP 0:0:50</td><td class="num">3,000</td><td class="num">≈ 135 kg</td><td class="num">≈ 175 kg (7 bags)</td><td class="num">≈ 16,000</td></tr>
+<tr><td>Magnesium sulphate</td><td class="num">760</td><td class="num">≈ 330 kg</td><td class="num">≈ 400 kg (16 bags)</td><td class="num">≈ 10,000</td></tr>
+<tr><td>Fe-EDTA 12%</td><td class="num">quote</td><td class="num">≈ 13 kg</td><td class="num">≈ 15 kg</td><td class="num">—</td></tr>
+<tr><td>Manganese sulphate</td><td class="num">quote</td><td class="num">≈ 1.2 kg</td><td class="num">≈ 1.5 kg</td><td class="num">—</td></tr>
+<tr><td>Zinc sulphate</td><td class="num">quote</td><td class="num">≈ 0.7 kg</td><td class="num">≈ 1 kg</td><td class="num">—</td></tr>
+<tr><td>Solubor (or borax)</td><td class="num">quote</td><td class="num">≈ 1.3 kg (2.3 kg)</td><td class="num">≈ 1.5 kg (3 kg)</td><td class="num">—</td></tr>
+<tr><td>Copper sulphate</td><td class="num">quote</td><td class="num">≈ 0.15 kg</td><td class="num">≈ 0.25 kg</td><td class="num">—</td></tr>
+<tr><td>Sodium molybdate</td><td class="num">quote</td><td class="num">≈ 0.1 kg</td><td class="num">≈ 0.25 kg</td><td class="num">—</td></tr>
+<tr class="total"><td>Total macro fertilisers</td><td class="num"></td><td class="num">≈ 1.4 t</td><td class="num">≈ 1.7 t (69 bags)</td><td class="num">≈ ₹1.35 lakh</td></tr>
+</tbody></table></div>
+<p class="small">* Price shown is for Yara Nitrabor, used as a stand-in; get a quote for fertigation-grade calcium nitrate (section 4). Nitric acid: size after the water test.</p>
+<div class="note">
+<p><strong>Buy in two lots.</strong> Calcium nitrate takes up moisture and cakes in humid storage. Lot 1 (by March, Stages 1–2): about 40% of each item. Lot 2 (by early August, Stages 3–5): the rest, adjusted to the litres per day recorded in the daily register.</p>
+</div>
+
+<!-- ================================================= -->
+<h2>11. Troubleshooting</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>What you see</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Rhizome rots before sprouting</td><td>Water less before emergence; remove rotten pieces with their media and bag them out of the polyhouse; <em>Trichoderma</em> / <em>Pseudomonas</em> drench only if accepted by the buyer, and record it.</td></tr>
+<tr><td>Young leaves yellow, veins green</td><td>Check runoff pH; if above 6.5, switch to Fe-EDDHA and lower feed pH.</td></tr>
+<tr><td>Older leaves yellow between veins</td><td>Raise magnesium sulphate by 100 g / 1000 L.</td></tr>
+<tr><td>Leaf edges brown, scorched</td><td>Check root-zone EC. Above 3.0: flush (section 9). If normal, raise SOP.</td></tr>
+<tr><td>Root-zone EC keeps climbing above 3.0</td><td>Flush shots until ≈ 2.5, then lower feed EC by 0.2. Check that moisture is not being kept too low (below 30%).</td></tr>
+<tr><td>Very leafy plants, many shoots, small rhizomes</td><td>Switch to Stage 3/4 recipe on time; no extra N after 120 DAP.</td></tr>
+<tr><td>Whole plant pale, slow growth in Stage 2</td><td>Raise feed EC in 0.2 steps.</td></tr>
+<tr><td>Rhizomes showing above media, turning green</td><td>Top up with 2–2.5 cm of 80:20 mix.</td></tr>
+<tr><td>Media stays soggy (moisture above 50%), rot mid-season</td><td>Give fewer shots and let moisture fall to ≈ 30% before the next one; use 70:30 peat:chips for top-ups and next season.</td></tr>
+<tr><td>Some bags much wetter or drier than others</td><td>Run the dripper check (section 9); clean or replace blocked or leaking drippers.</td></tr>
+</tbody></table></div>
+
+<!-- ================================================= -->
+<h2>12. Pest and disease control (no pesticides)</h2>
+<ul>
+<li>Insect-proof netting (40–50 mesh) on all vents and openings; repair tears immediately.</li>
+<li>Double door entry with a footbath; doors kept closed.</li>
+<li>Yellow and blue sticky traps across the polyhouse (about 20–40 per acre); check and record catches weekly.</li>
+<li>Walk every bed once a week; look for thrips, scale insects, shoot borer and leaf spots.</li>
+<li>Remove affected plants or leaves with their media, bag them and take them out of the polyhouse.</li>
+<li>Keep the area around the polyhouse free of weeds; bring in no plant material other than the checked seed rhizomes.</li>
+<li>Clean tools and harvest crates before use; separate tools for any bed with disease.</li>
+<li>No chemical pesticide, fungicide or insecticide at any stage, including stored seed and harvested rhizomes. Any biological product only with buyer approval, recorded in the input register.</li>
+</ul>
+
+<!-- ================================================= -->
+<h2>13. Polyhouse climate</h2>
+<ul>
+<li>Target 20–35 °C with high humidity.</li>
+<li>April–May: keep side vents open; use 35–50% shade net over the young crop if temperature climbs above 35 °C; run foggers or fan-pads if installed.</li>
+</ul>
+
+<!-- ================================================= -->
+<h2>14. Harvest and post-harvest</h2>
+<ol class="steps">
+<li>Harvest when leaves have yellowed and dried and stems begin to lodge (≈ 250–270 DAP).</li>
+<li>Cut back dried tops, empty bags onto a clean tarpaulin, lift the clumps.</li>
+<li>Process (boil, slice, dry) within 2–3 days; until then store in shade under clean sawdust or coir dust.</li>
+<li>Boil in clean potable water in stainless steel vessels.</li>
+<li>Dry on clean raised trays or food-grade mats, never on the ground or roadside, until moisture is 8–10%.</li>
+<li>Pack in clean food-grade bags; store dry, off the floor, away from fertilisers and fuel.</li>
+<li>Keep the best disease-free mother rhizomes as seed for next season (no treatment).</li>
+<li>Send a sample of each lot to an accredited lab for pesticide multi-residue, heavy metals (Pb, Cd, As, Hg), aflatoxins and curcumin. Results must meet current EU limits — Regulation (EC) 396/2005 for pesticide residues and Regulation (EU) 2023/915 for contaminants.</li>
+</ol>
+
+<footer>
+<p>Version: 17 October 2026, for the April 2027 season. Revised: irrigation switched to small shots steered by root-zone moisture and EC (grower method); fertiliser budget and order quantities recalculated at October 2026 prices; Nitrabor and YaraMila excluded from the drip system. Confirm fertiliser analyses on the bags purchased; adjust with the water test and daily root-zone readings.</p>
+</footer>
+
+</main>
+</body>
+</html>
