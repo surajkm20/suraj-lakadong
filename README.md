@@ -2,7 +2,7 @@
 
 Operating plan for growing Lakadong turmeric in a 1-acre polyhouse in Bengaluru, in cocopeat + coco chips grow bags: what to order, when to plant, and what to feed at each stage.
 
-**[Open the plan](Lakadong_Turmeric_Polyhouse_Fertigation_Plan.html)**
+**[Open the plan](fertigation-plan.html)**
 
 ## What's inside
 
